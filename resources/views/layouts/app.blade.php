@@ -27,6 +27,11 @@
     </nav>
 
     <main class="container py-4">
+        @unless(request()->routeIs('dashboard'))
+            <div class="mb-3">
+                <a class="btn btn-outline-secondary btn-sm" href="{{ route('dashboard') }}" onclick="if (window.history.length > 1) { window.history.back(); return false; }">← Back</a>
+            </div>
+        @endunless
         <h1 class="h3 mb-4">@yield('heading')</h1>
 
         @if(session('success'))
