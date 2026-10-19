@@ -14,23 +14,31 @@
                 @endif
 
                 <div class="mb-3">
-                    <label class="form-label" for="customer_id">Customer ID</label>
-                    <input class="form-control" id="customer_id" name="customer_id" type="number" value="{{ old('customer_id', $record->customer_id) }}" required>
+                    <label class="form-label" for="customer_id">Customer</label>
+                    <select class="form-select" id="customer_id" name="customer_id" required>
+                        <option value="">Choose a customer</option>
+                        @foreach($customers as $customer)
+                            <option value="{{ $customer->id }}" @selected(old('customer_id', $record->customer_id) == $customer->id)>{{ $customer->name }} ({{ $customer->email }})</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="order_date">Order Date</label>
-                    <input class="form-control" id="order_date" name="order_date" type="datetime-local" value="{{ old('order_date', $record->order_date) }}" required>
+                    <input class="form-control" id="order_date" name="order_date" type="datetime-local" value="{{ old('order_date', $record->order_date?->format('Y-m-d\TH:i') ?? now()->format('Y-m-d\TH:i')) }}" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="status">Status (pending/preparing/completed/cancelled)</label>
-                    <input class="form-control" id="status" name="status" type="text" value="{{ old('status', $record->status) }}" required>
+                    <label class="form-label" for="status">Status</label>
+                    <select class="form-select" id="status" name="status" required>
+                        @foreach(['pending', 'preparing', 'completed', 'cancelled'] as $status)
+                            <option value="{{ $status }}" @selected(old('status', $record->status ?? 'pending') === $status)>{{ ucfirst($status) }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="total_amount">Total Amount</label>
-                    <input class="form-control" id="total_amount" name="total_amount" type="number" step="0.01" value="{{ old('total_amount', $record->total_amount) }}" required>
+                    <div class="form-text">Order total is calculated automatically from its items.</div>
                 </div>
 
                 <div class="d-flex gap-2">

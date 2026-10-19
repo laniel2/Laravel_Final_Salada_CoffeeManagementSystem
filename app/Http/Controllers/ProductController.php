@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -10,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $records = Product::latest()->paginate(10);
+        $records = Product::with('category')->latest()->paginate(10);
 
         return view('products.index', compact('records'));
     }
@@ -18,8 +19,9 @@ class ProductController extends Controller
     public function create()
     {
         $record = new Product();
+        $categories = Category::orderBy('name')->get();
 
-        return view('products.form', compact('record'));
+        return view('products.form', compact('record', 'categories'));
     }
 
     public function store(Request $request)
@@ -32,12 +34,14 @@ class ProductController extends Controller
 
     public function show(Product $record)
     {
+        $record->load('category');
         return view('products.show', compact('record'));
     }
 
     public function edit(Product $record)
     {
-        return view('products.form', compact('record'));
+        $categories = Category::orderBy('name')->get();
+        return view('products.form', compact('record', 'categories'));
     }
 
     public function update(Request $request, Product $record)
@@ -50,6 +54,10 @@ class ProductController extends Controller
 
     public function destroy(Product $record)
     {
+        if ($record->orderItems()->exists()) {
+            return back()->with('error', 'This product appears in order items and cannot be deleted.');
+        }
+
         try {
             $record->delete();
         } catch (\Illuminate\Database\QueryException $e) {

@@ -6,18 +6,18 @@
 @section('content')
     <div class="row g-3">
         @foreach([
-            ['categories', 'Categories', 'Manage product groups'],
-            ['products', 'Products', 'Manage menu and stock'],
-            ['customers', 'Customers', 'Customer contact details'],
-            ['orders', 'Orders', 'Track customer orders'],
-            ['order-items', 'Order Items', 'Manage items inside orders'],
-        ] as [$path, $name, $desc])
+            ['categories.index', 'Categories', 'Manage product groups'],
+            ['products.index', 'Products', 'Manage menu and stock'],
+            ['customers.index', 'Customers', 'Customer contact details'],
+            ['orders.index', 'Orders', 'Track customer orders'],
+            ['order-items.index', 'Order Items', 'Manage items inside orders'],
+        ] as [$routeName, $name, $desc])
             <div class="col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <h2 class="h5">{{ $name }}</h2>
                         <p class="text-muted">{{ $desc }}</p>
-                        <a class="btn btn-primary" href="{{ url('/' . $path) }}">Open {{ $name }}</a>
+                        <a class="btn btn-primary" href="{{ route($routeName) }}">Open {{ $name }}</a>
                     </div>
                 </div>
             </div>

@@ -32,6 +32,7 @@ class CustomerController extends Controller
 
     public function show(Customer $record)
     {
+        $record->load('orders');
         return view('customers.show', compact('record'));
     }
 

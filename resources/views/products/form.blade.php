@@ -14,8 +14,13 @@
                 @endif
 
                 <div class="mb-3">
-                    <label class="form-label" for="category_id">Category ID</label>
-                    <input class="form-control" id="category_id" name="category_id" type="number" value="{{ old('category_id', $record->category_id) }}" required>
+                    <label class="form-label" for="category_id">Category</label>
+                    <select class="form-select" id="category_id" name="category_id" required>
+                        <option value="">Choose a category</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" @selected(old('category_id', $record->category_id) == $category->id)>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">

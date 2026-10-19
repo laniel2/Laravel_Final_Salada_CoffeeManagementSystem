@@ -6,8 +6,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <p><strong>Order ID:</strong> {{ $record->order_id ?? '—' }}</p>
-            <p><strong>Product ID:</strong> {{ $record->product_id ?? '—' }}</p>
+            <p><strong>Order:</strong> #{{ $record->order_id }} · {{ $record->order?->customer?->name ?? '—' }}</p>
+            <p><strong>Product:</strong> {{ $record->product?->name ?? '—' }}</p>
             <p><strong>Quantity:</strong> {{ $record->quantity ?? '—' }}</p>
             <p><strong>Unit Price:</strong> {{ $record->unit_price ?? '—' }}</p>
             <p><strong>Subtotal:</strong> {{ $record->subtotal ?? '—' }}</p>

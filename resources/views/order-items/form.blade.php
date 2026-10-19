@@ -14,29 +14,31 @@
                 @endif
 
                 <div class="mb-3">
-                    <label class="form-label" for="order_id">Order ID</label>
-                    <input class="form-control" id="order_id" name="order_id" type="number" value="{{ old('order_id', $record->order_id) }}" required>
+                    <label class="form-label" for="order_id">Order</label>
+                    <select class="form-select" id="order_id" name="order_id" required>
+                        <option value="">Choose an order</option>
+                        @foreach($orders as $order)
+                            <option value="{{ $order->id }}" @selected(old('order_id', $record->order_id) == $order->id)>#{{ $order->id }} · {{ $order->customer->name }} · {{ $order->order_date->format('M j, Y') }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="product_id">Product ID</label>
-                    <input class="form-control" id="product_id" name="product_id" type="number" value="{{ old('product_id', $record->product_id) }}" required>
+                    <label class="form-label" for="product_id">Product</label>
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        <option value="">Choose a product</option>
+                        @foreach($products as $product)
+                            <option value="{{ $product->id }}" @selected(old('product_id', $record->product_id) == $product->id)>{{ $product->name }} · ${{ number_format($product->price, 2) }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="quantity">Quantity</label>
-                    <input class="form-control" id="quantity" name="quantity" type="number" value="{{ old('quantity', $record->quantity) }}" required>
+                    <input class="form-control" id="quantity" name="quantity" type="number" min="1" value="{{ old('quantity', $record->quantity ?? 1) }}" required>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label" for="unit_price">Unit Price</label>
-                    <input class="form-control" id="unit_price" name="unit_price" type="number" step="0.01" value="{{ old('unit_price', $record->unit_price) }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="subtotal">Subtotal</label>
-                    <input class="form-control" id="subtotal" name="subtotal" type="number" step="0.01" value="{{ old('subtotal', $record->subtotal) }}" required>
-                </div>
+                <p class="form-text">Price and subtotal are calculated from the selected product and quantity.</p>
 
                 <div class="d-flex gap-2">
                     <button class="btn btn-primary">Save</button>

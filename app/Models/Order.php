@@ -11,6 +11,11 @@ class Order extends Model
 
     protected $fillable = ['customer_id', 'order_date', 'status', 'total_amount'];
 
+    protected function casts(): array
+    {
+        return ['order_date' => 'datetime', 'total_amount' => 'decimal:2'];
+    }
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

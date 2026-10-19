@@ -26,7 +26,7 @@
                     @forelse($records as $record)
                         <tr>
                             <td>{{ $record->id }}</td>
-                            <td>{{ $record->customer_id }}</td>
+                            <td>{{ $record->customer?->name ?? '—' }}</td>
                             <td>{{ $record->order_date }}</td>
                             <td>{{ $record->status }}</td>
                             <td>{{ $record->total_amount }}</td>

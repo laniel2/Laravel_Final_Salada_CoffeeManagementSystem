@@ -6,7 +6,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <p><strong>Category ID:</strong> {{ $record->category_id ?? '—' }}</p>
+            <p><strong>Category:</strong> {{ $record->category?->name ?? '—' }}</p>
             <p><strong>Product Name:</strong> {{ $record->name ?? '—' }}</p>
             <p><strong>Description:</strong> {{ $record->description ?? '—' }}</p>
             <p><strong>Price:</strong> {{ $record->price ?? '—' }}</p>

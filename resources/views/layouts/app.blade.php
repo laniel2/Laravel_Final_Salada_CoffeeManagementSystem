@@ -16,9 +16,9 @@
 
             <div class="collapse navbar-collapse" id="nav">
                 <ul class="navbar-nav ms-auto">
-                    @foreach(['categories' => 'Categories', 'products' => 'Products', 'customers' => 'Customers', 'orders' => 'Orders', 'order-items' => 'Order Items'] as $path => $label)
+                    @foreach(['categories.index' => 'Categories', 'products.index' => 'Products', 'customers.index' => 'Customers', 'orders.index' => 'Orders', 'order-items.index' => 'Order Items'] as $routeName => $label)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/' . $path) }}">{{ $label }}</a>
+                            <a class="nav-link" href="{{ route($routeName) }}">{{ $label }}</a>
                         </li>
                     @endforeach
                 </ul>

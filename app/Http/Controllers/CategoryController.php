@@ -32,6 +32,7 @@ class CategoryController extends Controller
 
     public function show(Category $record)
     {
+        $record->load('products');
         return view('categories.show', compact('record'));
     }
 

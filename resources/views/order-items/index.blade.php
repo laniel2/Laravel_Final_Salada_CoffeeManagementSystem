@@ -1,10 +1,11 @@
 
 @extends('layouts.app')
 
+@section('title', 'Order Items')
+@section('heading', 'Order Items')
+
 @section('content')
-<div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Order Items</h2>
         <a href="{{ route('order-items.create') }}"
            class="btn btn-primary">
             Add Order Item
@@ -23,8 +24,8 @@
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
-                        <th>Order ID</th>
-                        <th>Product ID</th>
+                        <th>Order</th>
+                        <th>Product</th>
                         <th>Quantity</th>
                         <th>Unit Price</th>
                         <th>Subtotal</th>
@@ -35,8 +36,8 @@
                     @foreach($orderItems as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->order_id }}</td>
-                            <td>{{ $item->product_id }}</td>
+                            <td><a href="{{ route('orders.show', $item->order) }}">#{{ $item->order_id }} · {{ $item->order?->customer?->name ?? '—' }}</a></td>
+                            <td>{{ $item->product?->name ?? '—' }}</td>
                             <td>{{ $item->quantity }}</td>
                             <td>{{ number_format($item->unit_price, 2) }}</td>
                             <td>{{ number_format($item->subtotal, 2) }}</td>
@@ -77,5 +78,4 @@
             No order items found. Click Add Order Item to create one.
         </div>
     @endif
-</div>
 @endsection

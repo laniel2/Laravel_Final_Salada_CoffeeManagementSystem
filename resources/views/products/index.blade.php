@@ -27,7 +27,7 @@
                     @forelse($records as $record)
                         <tr>
                             <td>{{ $record->id }}</td>
-                            <td>{{ $record->category_id }}</td>
+                            <td>{{ $record->category->name }}</td>
                             <td>{{ $record->name }}</td>
                             <td>{{ $record->description }}</td>
                             <td>{{ $record->price }}</td>
